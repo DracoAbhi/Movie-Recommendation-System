@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body {
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #350048;
+        }
+
+        .btn {
+            position: relative;
+            width: 200px;
+            height: 50px;
+            margin: 10px;
+        }
+
+        .btn #submit {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            color: #fff;
+            z-index: 1;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-decoration: none;
+            overflow: hidden;
+            transition: 0.5s;
+            backdrop-filter: blur(15px);
+            cursor: pointer;
+        }
+
+        .btn:hover #submit {
+            letter-spacing: 3px;
+        }
+
+        .btn #submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
+            transform: skewX(45deg) translateX(0);
+            transition: 0.5s;
+        }
+
+        .btn:hover #submit::before {
+            transform: skewX(45deg) translateX(200%);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -5px;
+            width: 30px;
+            height: 10px;
+            background: #2bd2ff;
+            border-radius: 10px;
+            transition: 0.5s;
+            transition-delay: 0s;
+        }
+
+        .btn:hover::before {
+            bottom: 0;
+            height: 50%;
+            width: 80%;
+            border-radius: 30px;
+            transition-delay: 0.2s;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -5px;
+            width: 30px;
+            height: 10px;
+            background: #2bd2ff;
+            border-radius: 10px;
+            transition: 0.5s;
+            transition-delay: 0s;
+        }
+
+        .btn:hover::after {
+            top: 0;
+            height: 50%;
+            width: 80%;
+            border-radius: 30px;
+            transition-delay: 0.2s;
+        }
+
+        h1 {
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+            font-family: Verdana;
+            font-weight: bold;
+            background-color: rgba(43, 210, 255, 0.6);
+        }
+
+        #tab1,
+        #tab2 {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+
+        #demo {
+            width: 60%;
+            height: 35px;
+        }
+
+        tr:hover {
+            background-color: black;
+            color: white;
+        }
+
+        th {
+            font-size: 26px;
+            background-color: rgba(43, 210, 255, 0.6);
+        }
+
+        td {
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        #mov {
+            font-family: cursive;
+        }
+
+        #top {
+            background-color: rgba(43, 210, 255, 0.6);
+            border-radius: 10px;
+            font-size: 30px;
+            font-weight: bold;
+            width: 100%;
+            font-family: Verdana;
+            color: white;
+            padding: 5px;
+            text-align: center;
+        }
+
+        #sel1 {
+            height: 35px;
+            background-color: #350048;
+            color: #fff;
+            border-radius: 10px;
+            font-size: 22px;
+        }
+
+        option {
+            font-size: 20px;
+            font-weight: 500;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="container-fluid my-3">
+            <h1>MOVIE <span style="color: black;">RECOMMENDATION&nbsp;</span><span>SYSTEM</span></h1>
+            <form method="POST" action="/suggestions">
+                <div class="container-fluid form-group">
+                    <input type="text" id="demo" name="moviename" placeholder="Enter a Movie Name" required>
+                    <select id="sel1" name="moviechoice" required>
+                        <option>NUMBER OF MOVIES</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                    </select>
+                    <div class="btn"><button id="submit" type="submit">Suggest Movies</button></div>
+                </div>
+            </form>
+            <br>
+            <form method="POST" action="/topMovies">
+                <div class="container-fluid form-group">
+                    <h3 id="top">RECOMMENDATIONS <span style="color: black;">ON&nbsp;</span><span>GENRES</span></h3>
+                    <select id="sel1" name="topmovie">
+                        <option value="Action">GENRE : ACTION</option>
+                        <option value="Adventure">GENRE : ADVENTURE</option>
+                        <option value="Drama">GENRE : DRAMA</option>
+                        <option value="Romance">GENRE : ROMANCE</option>
+                        <option value="Fantasy">GENRE : FANTASY</option>
+                        <option value="Crime">GENRE : CRIME</option>
+                        <option value="Sci-Fi">GENRE : SCI-FI</option>
+                        <option value="War">GENRE : WAR</option>
+                        <option value="Family">GENRE : FAMILY</option>
+                        <option value="Comedy">GENRE : COMEDY</option>
+                    </select>
+                    <select id="sel1" name="topmovienum">
+                        <option value="5">TOP 5 MOVIES</option>
+                        <option value="10">TOP 10 MOVIES</option>
+                        <option value="15">TOP 15 MOVIES</option>
+                    </select>
+                    <div class="btn"><button id="submit" type="submit">Suggest Movies</button></div>
+                </div>
+            </form>
+        </div>
+
+        <div>
+            <table id="tab1" class="table">
+                {% for i in range(movies|length) %}
+                {% if i==0 %}
+                <tr>
+                    <th>POSTER</th>
+                    <th>MOVIE NAME</th>
+                    <th>GENRES</th>
+                    <th>RATINGS</th>
+                    <th>DIRECTORS</th>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td>
+                        <img src="{{posterList[i]}}" style="height: 150px; width: 100px;" />
+                    </td>
+                    <td id="mov">{{movies[i]}}</td>
+                    <td>{{genres[i]}}</td>
+                    <td>{{ratings[i]}}</td>
+                    <td>{{directors[i]}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div>
+            <table id="tab2" class="table">
+                {% for i in range(movietitles|length) %}
+                {% if i==0 %}
+                <tr>
+                    <th>POSTER</th>
+                    <th>TITLE</th>
+                    <th>SUMMARY</th>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td>
+                        <img src="{{posters[i]}}" style="height: 150px; width: 100px;" />
+                    </td>
+                    <td>{{movietitles[i]}}</td>
+                    <td>{{summary[i]}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>
