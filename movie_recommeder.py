@@ -8,13 +8,10 @@ def get_title_from_index(index) :
     return movies[movies.index == index][1].values[0]
 
 def get_index_from_title(title) : 
-    try :
-        title_list = movies[1].tolist()
-        common_matches = difflib.get_close_matches(title, title_list, 1)
-        similar_titles = common_matches[0]
-        return movies[movies[1] == similar_titles][16].values[0]
-    except :
-        print("Movie Not found ")
+    title_list = movies[1].tolist()
+    common_matches = difflib.get_close_matches(title, title_list, 1)
+    similar_titles = common_matches[0]
+    return movies[movies[1] == similar_titles][16].values[0]
 
 def get_ratings_from_index(index) :
     return movies[movies.index == index][6].values[0]
@@ -55,7 +52,10 @@ def fetch_Recommendations(user_pref,choice) :
     similarity = cosine(count_matrix)
 
     #Calling helper function to fetch movie index based on the title entered
-    movie_index = get_index_from_title(user_pref)
+    try :
+        movie_index = get_index_from_title(user_pref)
+    except :
+        return ["Sorry,Movie is not present in our dataset!"],[],[],[],["https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX24748048.jpg"]
 
     #Generating a list of similar movies using cosine similarity
     similar_movies = list(enumerate(similarity[movie_index]))
