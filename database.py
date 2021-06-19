@@ -14,14 +14,6 @@ cursor.execute(dbQuery)
 rs = cursor.fetchall()
 db = pd.DataFrame(rs)
 
-query = "SELECT Series_Title,Poster_Link,Meta_score from imdb_top_1000 WHERE IMDB_Rating>(SELECT AVG(IMDB_Rating) from imdb_top_1000) AND No_of_Votes>(SELECT AVG(No_of_Votes) FROM imdb_top_1000) ORDER BY Meta_score DESC"
-cursor.execute(query)
-rs = cursor.fetchall()
-topList = []
-
-for movie in rs :
-    topList.append(movie[0])
-
 #Query for fetching Action Genre Movies
 actionQuery = "SELECT Series_Title,Poster_Link,Overview from imdb_top_1000 where Genre LIKE '%Action%' and(IMDB_Rating > (SELECT AVG(IMDB_Rating) from imdb_top_1000) and no_of_votes > (SELECT AVG(no_of_votes) from imdb_top_1000)) ORDER BY Meta_score DESC"
 cursor.execute(actionQuery)
