@@ -33,9 +33,9 @@ def get_posters_from_index(index) :
 movies = db
 
 #selecting specific features from the dataset
-feature_names = [5,9,10,11]
+feature_cols = [5,9,10,11]
 
-for feature in feature_names :
+for feature in feature_cols :
     movies[feature] = movies[feature].fillna('')
 
 #Creating a new dataframe to combine all these features
